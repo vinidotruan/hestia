@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\NGO;
+use App\Models\Address;
 use Illuminate\Http\Request;
 
-class NGOController extends Controller
+class AddressController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -26,7 +26,7 @@ class NGOController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(NGO $nGO)
+    public function show(Address $address)
     {
         //
     }
@@ -34,7 +34,7 @@ class NGOController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, NGO $nGO)
+    public function update(Request $request, Address $address)
     {
         //
     }
@@ -42,7 +42,7 @@ class NGOController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(NGO $nGO)
+    public function destroy(Address $address)
     {
         //
     }

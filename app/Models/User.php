@@ -3,15 +3,20 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -24,6 +29,7 @@ class User extends Authenticatable
         'password',
         'profile_id',
         'profile_type',
+        'active',
     ];
 
     /**
@@ -46,8 +52,19 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function profile(): MorphTo
+    public function address(): HasOne
     {
-        return $this->morphTo();
+        return $this->hasOne(Address::class);
     }
+
+    public function scopeIsPending(Builder $query)
+    {
+        $query->whereNull('active');
+    }
+
+    public function scopeIsDenied(Builder $query)
+    {
+        $query->where('active', '=', false);
+    }
+
 }
