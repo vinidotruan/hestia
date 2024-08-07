@@ -16,6 +16,15 @@ more easy.
 
 ## Como Usar / How to Use
 
+### Dependências
+
+Tenha certeza que todas as depedências estão instaladas, a princípio você só vai precisar rodar esse comando.
+Mas lembre-se de ter uma base de dados instalada e configurar o .env corretamente.
+
+```bash
+composer install
+```
+
 ### Cadastrar usuários
 
 *POST* - `/auth/register`
@@ -36,3 +45,11 @@ php artisan migrate --seed
 
 Para preencher o banco de dados com algumas ongs com endereços da região sul do país e assim você pode testar usando uma
 coordenada próxima ou distante.
+
+### TODOs
+
+Algumas coisas já estão mapeadas para serem adicionadas.
+
+- Criar possibilidade das ongs publicarem fotos do local (foto de capa, foto dos trabalhos)
+- Criar possibilidade das ongs adicionarem os serviços prestados por elas.
+- Adicionar tabela de contatos para as ongs.
