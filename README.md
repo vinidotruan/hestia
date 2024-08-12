@@ -50,6 +50,6 @@ coordenada próxima ou distante.
 
 Algumas coisas já estão mapeadas para serem adicionadas.
 
-- Criar possibilidade das ongs publicarem fotos do local (foto de capa, foto dos trabalhos)
-- Criar possibilidade das ongs adicionarem os serviços prestados por elas.
-- Adicionar tabela de contatos para as ongs.
+- [ ] Criar possibilidade das ongs publicarem fotos do local (foto de capa, foto dos trabalhos)
+- [x] Adicionar tabela de contatos para as ongs.
+- [x] Criar possibilidade das ongs adicionarem os serviços prestados por elas.

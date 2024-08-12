@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\AddressController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ContactsController;
+use App\Http\Controllers\ProvidedServicesController;
 use App\Http\Controllers\SearchController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('auth')->group(function () {
@@ -13,10 +15,9 @@ Route::prefix('auth')->group(function () {
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('users/authorize', [AdminController::class, 'authorizeUser']);
+    Route::apiResource('provided-services', ProvidedServicesController::class);
+    Route::apiResource('addresses', AddressController::class);
+    Route::apiResource('contacts', ContactsController::class);
 });
 
 Route::get('ongs', [SearchController::class, 'searchOngsByDistance']);
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});

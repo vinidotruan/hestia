@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Models\Address;
 use App\Models\User;
@@ -15,13 +16,13 @@ class AuthController extends Controller
     {
         $user = User::create($request->all());
         $address = Address::create($request->all());
-        $user->addresses()->save($address);
+        $user->address()->save($address);
         return response()->json([
             'data' => 'User created'
         ]);
     }
 
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
         $credentials = $request->validate([
             'email' => ['required', 'email'],

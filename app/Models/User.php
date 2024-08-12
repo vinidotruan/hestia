@@ -52,9 +52,21 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    protected $with = ['address', 'providedServices', 'contacts'];
+
     public function address(): HasOne
     {
         return $this->hasOne(Address::class);
+    }
+
+    public function providedServices(): HasMany
+    {
+        return $this->hasMany(ProvidedServices::class);
+    }
+
+    public function contacts(): HasMany
+    {
+        return $this->hasMany(Contacts::class);
     }
 
     public function scopeIsPending(Builder $query)

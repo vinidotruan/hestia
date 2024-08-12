@@ -21,6 +21,11 @@ class Address extends Model
         'number'
     ];
 
+    protected $casts = [
+        'lon' => 'float',
+        'lat' => 'float',
+    ];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

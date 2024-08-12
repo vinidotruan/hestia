@@ -25,7 +25,7 @@ class SearchController extends Controller
                     $latDestiny,
                     $lonDestiny
                 ) / 1000;
-            if ($d < $distance) {
+            if ($d <= $distance) {
                 $closer[] = $user;
             }
         }

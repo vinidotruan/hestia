@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Requests\Auth;
+namespace App\Http\Requests\Address;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Rules\Password;
 
-class RegisterRequest extends FormRequest
+class StoreAddressRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,15 +24,13 @@ class RegisterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => ['required', 'email', 'unique:users,email'],
-            'password' => ['required', 'confirmed', Password::min(8)],
-            'name' => ['required'],
-            'street' => ['required'],
+            'user_id' => ['required', 'exists:users,id'],
             'uf' => ['required'],
+            'street' => ['required'],
             'number' => ['required'],
-            'zip_code' => ['required'],
-            'lon' => ['required'],
+            'zip-code' => ['required'],
             'lat' => ['required'],
+            'lon' => ['required'],
         ];
     }
 }

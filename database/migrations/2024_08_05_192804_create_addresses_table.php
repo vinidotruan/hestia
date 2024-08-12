@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -18,8 +17,8 @@ return new class extends Migration
             $table->string('street');
             $table->string('zip_code');
             $table->string('number');
-            $table->string('lat')->nullable();
-            $table->string('lon')->nullable();
+            $table->string('lat');
+            $table->string('lon');
             $table->timestamps();
             $table->softDeletes();
         });
