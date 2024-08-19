@@ -24,19 +24,6 @@ Mas lembre-se de ter uma base de dados instalada e configurar o .env corretament
 ```bash
 composer install
 ```
-
-### Cadastrar usuários
-
-*POST* - `/auth/register`
-
-### Aceitar - Recusar usuários
-
-*POST* - `/users/authorize`
-
-### Buscar ongs X KMs distancia
-
-*GET* - `/ongs`
-
 ## Como testar
 
 ```bash
@@ -46,10 +33,6 @@ php artisan migrate --seed
 Para preencher o banco de dados com algumas ongs com endereços da região sul do país e assim você pode testar usando uma
 coordenada próxima ou distante.
 
-### TODOs
+### Endpoints
 
-Algumas coisas já estão mapeadas para serem adicionadas.
-
-- [ ] Criar possibilidade das ongs publicarem fotos do local (foto de capa, foto dos trabalhos)
-- [x] Adicionar tabela de contatos para as ongs.
-- [x] Criar possibilidade das ongs adicionarem os serviços prestados por elas.
+Para consultar os endpoints você tem dois caminhos, um deles usando `php artisan route:list` ou pode ir até `localhost:8000/request-docs` onde você terá uma melhor visão de todos os endpoints da aplicação.

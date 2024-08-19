@@ -69,12 +69,17 @@ class User extends Authenticatable
         return $this->hasMany(Contacts::class);
     }
 
-    public function scopeIsPending(Builder $query)
+    public function pictures(): HasMany
+    {
+        return $this->hasMany(Picture::class);
+    }
+
+    public function scopeIsPending(Builder $query): void
     {
         $query->whereNull('active');
     }
 
-    public function scopeIsDenied(Builder $query)
+    public function scopeIsDenied(Builder $query): void
     {
         $query->where('active', '=', false);
     }
