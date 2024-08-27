@@ -6,6 +6,8 @@ use App\Helpers\DistanceHelper;
 use App\Http\Requests\Search\SearchOngsRequest;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class SearchController extends Controller
 {
@@ -31,5 +33,10 @@ class SearchController extends Controller
         }
 
         return response()->json(['data' => $closer]);
+    }
+
+    public function index(): Response
+    {
+        return Inertia::render("Search/Search", ['ongs' => User::all()]);
     }
 }
