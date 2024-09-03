@@ -23,12 +23,13 @@ class UsersSeeder extends Seeder
         ]);
         $admin->assignRole(1);
         $a = Address::create([
-            'uf' => 'teste',
-            'street' => 'teste',
-            'zip_code' => 'teste',
+            'uf' => 'RS',
+            'street' => 'Rua teste',
+            'zip_code' => '93048132',
             'number' => 'teste',
             'lat' => "-29.781273",
-            'lon' => "-51.161694"
+            'lon' => "-51.161694",
+            "city" => "teste cidade"
         ]);
         $admin->address()->save($a);
 
@@ -57,12 +58,13 @@ class UsersSeeder extends Seeder
             $ong->assignRole(2);
 
             $a = Address::create([
-                'uf' => 'teste',
-                'street' => 'teste',
-                'zip_code' => 'teste',
-                'number' => 'teste',
+                'uf' => 'RS',
+                'street' => 'Rua Teste Gerada',
+                'zip_code' => '93048135',
+                'number' => '333',
                 'lat' => $location['lat'],
-                'lon' => $location['lon']
+                'lon' => $location['lon'],
+                'city' => 'City teste'
             ]);
             $ong->address()->save($a);
         }

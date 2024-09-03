@@ -17,6 +17,7 @@ return new class extends Migration {
             $table->string('street');
             $table->string('zip_code');
             $table->string('number');
+            $table->string('city');
             $table->string('lat');
             $table->string('lon');
             $table->timestamps();

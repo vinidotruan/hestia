@@ -36,3 +36,11 @@ coordenada próxima ou distante.
 ### Endpoints
 
 Para consultar os endpoints você tem dois caminhos, um deles usando `php artisan route:list` ou pode ir até `localhost:8000/request-docs` onde você terá uma melhor visão de todos os endpoints da aplicação.
+
+# TODO 
+- Signup
+- Account Settings
+- Account pictures
+- Singular page - ongs
+- Busca por tags de servicos prestados
+- Listar servicos prestados

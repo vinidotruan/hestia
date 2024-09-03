@@ -29,6 +29,11 @@ class ContactsController extends Controller
             return response()->json(['message' => 'Not Allowed'], 403);
         }
 
+        $oldMain = auth()->user()->contact;
+        if($request->get('main') && isset($oldMain)) {
+            $oldMain->update(['main' => false]);
+        }
+
         $contact = Contacts::create($request->all());
         return response()->json(['data' => $contact]);
     }

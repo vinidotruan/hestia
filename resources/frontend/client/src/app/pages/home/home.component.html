@@ -1,0 +1,41 @@
+<div class="row my-4">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <form [formGroup]="form">
+          <div class="mb-3">
+            <label for="distance" class="form-label">Limite de KM's: <b>{{form.value.distance}} KM</b></label>
+            <input type="range" class="form-range" id="distance" step="5" min="0" max="100" formControlName="distance">
+          </div>
+          <div class="mb-3">
+            <label for="search" class="form-label">Buscar Ongs</label>
+            <input type="text" class="form-control" name="search" id="search">
+          </div>
+          <button type="submit" class="btn btn-primary" (click)="search()">Buscar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row my-4">
+  <div class="col-12">
+    <div class="card mb-3" *ngFor="let ong of ongs">
+      <div class="row g-0">
+        <div class="col-md-4">
+          <img [src]="ong.image?.url ?? '/assets/no.jpg'" class="img-fluid rounded-start" alt="...">
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title">{{ong.name}} - <b class="text-primary">{{ong.distance}} KM</b></h5>
+            <p class="card-text">
+              Rua: {{ ong.address.street ?? "N/A" }}, № {{ ong.address.number ?? "N/A" }} - {{ ong.address.city }}
+              / {{ong.address.uf}}
+            </p>
+            <p class="card-text"><small class="text-body-secondary">{{ong.contact?.name}}
+              - {{ ong.contact?.data}}</small></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

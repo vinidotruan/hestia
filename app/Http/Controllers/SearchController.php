@@ -6,8 +6,6 @@ use App\Helpers\DistanceHelper;
 use App\Http\Requests\Search\SearchOngsRequest;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
-use Inertia\Inertia;
-use Inertia\Response;
 
 class SearchController extends Controller
 {
@@ -28,15 +26,15 @@ class SearchController extends Controller
                     $lonDestiny
                 ) / 1000;
             if ($d <= $distance) {
+                $user['distance'] = floor($d);
                 $closer[] = $user;
             }
         }
 
-        return response()->json(['data' => $closer]);
-    }
+        usort($closer, function($a, $b) {
+          return $a['distance'] > $b['distance'];
+        });
 
-    public function index(): Response
-    {
-        return Inertia::render("Search/Search", ['ongs' => User::all()]);
+        return response()->json(['data' => $closer]);
     }
 }

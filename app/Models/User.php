@@ -2,12 +2,11 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -52,7 +51,8 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    protected $with = ['address', 'providedServices', 'contacts'];
+    protected $with = ['address', 'providedServices', 'contacts', 'pictures'];
+    protected $appends = ['image', 'contact'];
 
     public function address(): HasOne
     {
@@ -69,9 +69,23 @@ class User extends Authenticatable
         return $this->hasMany(Contacts::class);
     }
 
+    public function contact(): Attribute
+    {
+        return Attribute::make(get: function (mixed $value, array $attributes) {
+            return $this->contacts()->where('main', 1)->first();
+        });
+    }
+
     public function pictures(): HasMany
     {
         return $this->hasMany(Picture::class);
+    }
+
+    public function image(): Attribute
+    {
+        return Attribute::make(get: function(mixed $value, array $attributes) {
+            return $this->pictures()->where('main', 1)->first();
+        });
     }
 
     public function scopeIsPending(Builder $query): void

@@ -14,6 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->string('name');
+            $table->boolean('main');
             $table->string('data');
             $table->timestamps();
         });
