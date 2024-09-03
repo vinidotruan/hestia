@@ -1,20 +1,44 @@
-FROM richarvey/nginx-php-fpm:1.7.2
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    git \
+    curl \
+    libpng-dev \
+    libonig-dev \
+    libxml2-dev \
+    zip \
+    unzip
 
-COPY . .
+# Clear cache
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Image config
-ENV SKIP_COMPOSER 1
-ENV WEBROOT /var/www/html/public
-ENV PHP_ERRORS_STDERR 1
-ENV RUN_SCRIPTS 1
-ENV REAL_IP_HEADER 1
+# Install PHP extensions
+RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
 
-# Laravel config
-ENV APP_ENV production
-ENV APP_DEBUG false
-ENV LOG_CHANNEL stderr
+# Get latest Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Allow composer to run as root
-ENV COMPOSER_ALLOW_SUPERUSER 1
+# Set working directory
+WORKDIR /var/www
 
-CMD ["/start.sh"]
+# Copy existing application directory contents
+COPY . /var/www
+
+# Install dependencies
+RUN composer install
+
+# Install Node.js and npm
+RUN curl -sL https://deb.nodesource.com/setup_14.x | bash -
+RUN apt-get install -y nodejs
+
+# Install Laravel Mix dependencies and compile assets
+# RUN npm install && npm run production
+
+# Copy existing application directory permissions
+COPY --chown=www-data:www-data . /var/www
+
+# Change current user to www
+USER www-data
+
+# Expose port 9000 and start php-fpm server
+EXPOSE 80
+CMD ["php-fpm"]
