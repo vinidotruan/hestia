@@ -9,7 +9,8 @@ RUN apt-get update && apt-get install -y \
     libxml2-dev \
     zip \
     unzip \
-    nginx
+    nodejs \
+    npm
 
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -20,34 +21,35 @@ RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
 # Get latest Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-COPY ./nginx/conf.d/app.conf /etc/nginx/conf.d/default.conf
-
-
 # Set working directory
 WORKDIR /var/www
 
 # Copy existing application directory contents
 COPY . /var/www
 
-# Install dependencies
-RUN composer install
+# Install PHP dependencies
+RUN composer install --optimize-autoloader --no-dev
+
+# Install and build Angular app
+WORKDIR /var/www/resources/frontend/client
+RUN npm install
+RUN npm run build
+
+# Set back the working directory
+WORKDIR /var/www
 
 # Set permissions
 RUN chown -R www-data:www-data /var/www
 RUN chmod -R 775 /var/www/storage /var/www/bootstrap/cache
 
+# Install Nginx
+RUN apt-get update && apt-get install -y nginx
 
-RUN chown -R www-data:www-data /var/lib/nginx
+# Copy Nginx configuration
+COPY nginx.conf /etc/nginx/sites-available/default
 
-# Create system user to run Composer and Artisan Commands
-RUN useradd -G www-data,root -u 1000 -d /home/dev dev
-RUN mkdir -p /home/dev/.composer && \
-    chown -R dev:dev /home/dev
-
-USER dev
-
+# Expose port 80
 EXPOSE 80
-EXPOSE 9000
-CMD ["sh", "-c", "php-fpm & nginx -g 'daemon off;'"]
 
-
+# Start Nginx and PHP-FPM
+CMD service nginx start && php-fpm
