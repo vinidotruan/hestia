@@ -46,7 +46,7 @@ RUN chmod -R 775 /var/www/storage /var/www/bootstrap/cache
 RUN apt-get update && apt-get install -y nginx
 
 # Copy Nginx configuration
-COPY nginx.conf /etc/nginx/sites-available/default
+COPY ./nginx/conf.d/app.conf /etc/nginx/sites-available/default
 
 # Expose port 80
 EXPOSE 80
