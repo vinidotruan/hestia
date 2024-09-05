@@ -40,6 +40,7 @@ RUN mkdir -p /home/dev/.composer && \
 # Switch to the dev user
 USER dev
 
-# Expose port 9000 and start php-fpm server
 EXPOSE 80
-CMD ["php-fpm"]
+EXPOSE 9000
+CMD service nginx start && php-fpm
+
