@@ -39,6 +39,7 @@ RUN chmod -R 775 /var/www/storage /var/www/bootstrap/cache
 # Criar o diretório e ajustar as permissões
 RUN mkdir -p /var/lib/nginx/body && \
     mkdir -p /var/lib/nginx/proxy && \
+    mkdir -p /var/lib/nginx/fastcgi && \
     chown -R www-data:www-data /var/lib/nginx
 
 # Create system user to run Composer and Artisan Commands
