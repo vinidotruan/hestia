@@ -41,6 +41,5 @@ RUN mkdir -p /home/dev/.composer && \
 USER dev
 
 # Expose port 9000 and start php-fpm server
-EXPOSE 9000
 EXPOSE 80
 CMD ["php-fpm"]
