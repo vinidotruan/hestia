@@ -20,6 +20,9 @@ RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
 # Get latest Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
+COPY ./nginx/conf.d/app.conf /etc/nginx/conf.d/default.conf
+
+
 # Set working directory
 WORKDIR /var/www
 
@@ -43,5 +46,6 @@ USER dev
 
 EXPOSE 80
 EXPOSE 9000
-CMD service nginx start && php-fpm
+CMD ["sh", "-c", "php-fpm & nginx -g 'daemon off;'"]
+
 
