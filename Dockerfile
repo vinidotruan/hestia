@@ -36,6 +36,11 @@ RUN composer install
 RUN chown -R www-data:www-data /var/www
 RUN chmod -R 775 /var/www/storage /var/www/bootstrap/cache
 
+# Criar o diretório e ajustar as permissões
+RUN mkdir -p /var/lib/nginx/body && \
+    chown -R www-data:www-data /var/lib/nginx
+
+
 # Create system user to run Composer and Artisan Commands
 RUN useradd -G www-data,root -u 1000 -d /home/dev dev
 RUN mkdir -p /home/dev/.composer && \
