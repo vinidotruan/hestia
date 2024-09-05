@@ -52,4 +52,4 @@ COPY zz-docker.conf /usr/local/etc/php-fpm.d/zz-docker.conf
 EXPOSE 80
 
 # Start Nginx and PHP-FPM
-CMD /usr/sbin/php-fpm8.1 && nginx -g 'daemon off;'
+CMD php-fpm && nginx -g 'daemon off;'
