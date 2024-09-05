@@ -19,6 +19,7 @@ services:
             - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
         networks:
             - app-network
+        entrypoint: [ "/var/www/docker-entrypoint.sh" ]
 
     #Nginx Service
     webserver:
@@ -27,30 +28,10 @@ services:
         restart: unless-stopped
         tty: true
         ports:
-            - "80:80"
-            - "443:443"
+            - "8080:80"
         volumes:
             - ./:/var/www
             - ./nginx/conf.d/:/etc/nginx/conf.d/
-        networks:
-            - app-network
-
-    #MySQL Service
-    db:
-        image: mysql:5.7.22
-        container_name: db
-        restart: unless-stopped
-        tty: true
-        ports:
-            - "3306:3306"
-        environment:
-            MYSQL_DATABASE: laravel
-            MYSQL_ROOT_PASSWORD: your_mysql_root_password
-            SERVICE_TAGS: dev
-            SERVICE_NAME: mysql
-        volumes:
-            - dbdata:/var/lib/mysql/
-            - ./mysql/my.cnf:/etc/mysql/my.cnf
         networks:
             - app-network
 
@@ -58,8 +39,3 @@ services:
 networks:
     app-network:
         driver: bridge
-
-#Volumes
-volumes:
-    dbdata:
-        driver: local

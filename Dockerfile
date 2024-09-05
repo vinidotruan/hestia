@@ -1,4 +1,3 @@
-# Dockerfile
 FROM php:8.1-fpm
 
 # Install system dependencies
@@ -29,9 +28,18 @@ COPY . /var/www
 # Install dependencies
 RUN composer install
 
-# Change ownership of our applications
+# Set permissions
 RUN chown -R www-data:www-data /var/www
+RUN chmod -R 775 /var/www/storage /var/www/bootstrap/cache
+
+# Create system user to run Composer and Artisan Commands
+RUN useradd -G www-data,root -u 1000 -d /home/dev dev
+RUN mkdir -p /home/dev/.composer && \
+    chown -R dev:dev /home/dev
+
+# Switch to the dev user
+USER dev
 
 # Expose port 9000 and start php-fpm server
-EXPOSE 80
+EXPOSE 9000
 CMD ["php-fpm"]
