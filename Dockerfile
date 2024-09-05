@@ -47,9 +47,9 @@ RUN apt-get update && apt-get install -y nginx
 
 # Copy Nginx configuration
 COPY ./nginx/conf.d/app.conf /etc/nginx/sites-available/default
-
+COPY zz-docker.conf /usr/local/etc/php-fpm.d/zz-docker.conf
 # Expose port 80
 EXPOSE 80
 
 # Start Nginx and PHP-FPM
-CMD service nginx start && php-fpm
+CMD /usr/sbin/php-fpm8.1 && nginx -g 'daemon off;'
