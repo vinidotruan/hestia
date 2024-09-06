@@ -38,7 +38,6 @@ RUN npm run build
 # Set back the working directory
 WORKDIR /var/www
 
-# Set permissions
 RUN chown -R www-data:www-data /var/www
 RUN chmod -R 775 /var/www/storage /var/www/bootstrap/cache
 
@@ -51,6 +50,7 @@ COPY zz-docker.conf /usr/local/etc/php-fpm.d/zz-docker.conf
 # Expose port 80
 EXPOSE 80
 
+CMD echo "Aqui" /
 CMD ls /var/public /
 # Start Nginx and PHP-FPM
 CMD php-fpm && nginx -g 'daemon off;'
