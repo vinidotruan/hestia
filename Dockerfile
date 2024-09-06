@@ -44,13 +44,14 @@ RUN chmod -R 775 /var/www/storage /var/www/bootstrap/cache
 # Install Nginx
 RUN apt-get update && apt-get install -y nginx
 
+CMD echo "Aqui" /
+CMD ls /var/public /
+
 # Copy Nginx configuration
 COPY ./nginx/conf.d/app.conf /etc/nginx/sites-available/default
 COPY zz-docker.conf /usr/local/etc/php-fpm.d/zz-docker.conf
 # Expose port 80
 EXPOSE 80
 
-CMD echo "Aqui" /
-CMD ls /var/public /
 # Start Nginx and PHP-FPM
 CMD php-fpm && nginx -g 'daemon off;'

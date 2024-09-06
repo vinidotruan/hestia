@@ -65,7 +65,7 @@
               "outputHashing": "all"
             },
             "development": {
-              "outputPath": "dist/assets/client",
+              "outputPath": "../../../public/assets/client",
               "baseHref": "/assets/client/browser/",
               "optimization": false,
               "extractLicenses": false,
