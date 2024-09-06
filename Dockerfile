@@ -50,7 +50,7 @@ COPY ./nginx/conf.d/app.conf /etc/nginx/sites-available/default
 COPY zz-docker.conf /usr/local/etc/php-fpm.d/zz-docker.conf
 # Expose port 80
 EXPOSE 80
-CMD clear
-CMD ls /var/public
+
+CMD ls /var/public /
 # Start Nginx and PHP-FPM
 CMD php-fpm && nginx -g 'daemon off;'
