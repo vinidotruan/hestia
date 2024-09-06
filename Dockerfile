@@ -34,7 +34,7 @@ RUN composer install --optimize-autoloader --no-dev
 # Install and build Angular app
 WORKDIR /var/www/resources/frontend/client
 RUN npm install
-RUN npm run build -- --production
+RUN npm run build
 
 # Set back the working directory
 WORKDIR /var/www
