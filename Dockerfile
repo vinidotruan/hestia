@@ -10,7 +10,8 @@ RUN apt-get update && apt-get install -y \
     zip \
     unzip \
     nodejs \
-    npm
+    npm \
+    nginx
 
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -33,7 +34,7 @@ RUN composer install --optimize-autoloader --no-dev
 # Install and build Angular app
 WORKDIR /var/www/resources/frontend/client
 RUN npm install
-RUN npm run build
+RUN npm run build -- --configuration=production
 
 # Set back the working directory
 WORKDIR /var/www
@@ -41,15 +42,10 @@ WORKDIR /var/www
 RUN chown -R www-data:www-data /var/www
 RUN chmod -R 775 /var/www/storage /var/www/bootstrap/cache
 
-# Install Nginx
-RUN apt-get update && apt-get install -y nginx
-
-CMD echo "Aqui" /
-CMD ls /var/public /
-
 # Copy Nginx configuration
 COPY ./nginx/conf.d/app.conf /etc/nginx/sites-available/default
 COPY zz-docker.conf /usr/local/etc/php-fpm.d/zz-docker.conf
+
 # Expose port 80
 EXPOSE 80
 
