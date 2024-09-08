@@ -30,7 +30,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Gate::define('authorize-user', fn(User $user) => $user->hasRole('admin'));
-
         Gate::define('delete-picture', function (User $user, Picture $picture) {
             return $user->hasRole('admin') || $user->id === $picture->user_id;
         });

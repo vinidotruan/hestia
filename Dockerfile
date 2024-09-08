@@ -1,53 +1,20 @@
-FROM php:8.1-fpm
+FROM richarvey/nginx-php-fpm:1.7.2
 
-# Install system dependencies
-RUN apt-get update && apt-get install -y \
-    git \
-    curl \
-    libpng-dev \
-    libonig-dev \
-    libxml2-dev \
-    zip \
-    unzip \
-    nodejs \
-    npm \
-    nginx
+COPY . .
 
-# Clear cache
-RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+# Image config
+ENV SKIP_COMPOSER 1
+ENV WEBROOT /var/www/html/public
+ENV PHP_ERRORS_STDERR 1
+ENV RUN_SCRIPTS 1
+ENV REAL_IP_HEADER 1
 
-# Install PHP extensions
-RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
+# Laravel config
+ENV APP_ENV production
+ENV APP_DEBUG false
+ENV LOG_CHANNEL stderr
 
-# Get latest Composer
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+# Allow composer to run as root
+ENV COMPOSER_ALLOW_SUPERUSER 1
 
-# Set working directory
-WORKDIR /var/www
-
-# Copy existing application directory contents
-COPY . /var/www
-
-# Install PHP dependencies
-RUN composer install --optimize-autoloader --no-dev
-
-# Install and build Angular app
-WORKDIR /var/www/resources/frontend/client
-RUN npm install
-RUN npm run build
-
-# Set back the working directory
-WORKDIR /var/www
-
-RUN chown -R www-data:www-data /var/www
-RUN chmod -R 775 /var/www/storage /var/www/bootstrap/cache
-
-# Copy Nginx configuration
-COPY ./nginx/conf.d/app.conf /etc/nginx/sites-available/default
-COPY zz-docker.conf /usr/local/etc/php-fpm.d/zz-docker.conf
-
-# Expose port 80
-EXPOSE 80
-
-# Start Nginx and PHP-FPM
-CMD php-fpm && nginx -g 'daemon off;'
+CMD ["/start.sh"]
