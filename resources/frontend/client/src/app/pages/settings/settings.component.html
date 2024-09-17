@@ -1,0 +1,80 @@
+<div class="row my-4">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header">
+        <h2>Dados do usuário</h2>
+      </div>
+      <div class="card-body">
+        <form autocomplete="off">
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" aria-describedby="emailHelp"
+                   autocomplete="off">
+            <div id="emailHelp" class="form-text">Não compartilharemos seus dados com ninguém.</div>
+          </div>
+          <div>
+            <label class="form-label">Senha</label>
+          </div>
+          <div class="mb-3">
+            <button class="btn btn-outline-primary">Atualizar Senha</button>
+          </div>
+        </form>
+      </div>
+      <div class="card-footer text-end">
+        <button class="btn btn-primary">Salvar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row my-4">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header">
+        <h2>Endereço</h2>
+      </div>
+      <div class="card-body">
+        <form autocomplete="off" class="row g-3">
+          <div class="col-12">
+            <label for="uf" class="form-label">Estado</label>
+            <select class="form-select" id="uf" name="uf" required>
+              <option selected disabled value="">Escolha...</option>
+              <option *ngFor="let uf of ufs" [value]="uf.sigla"> {{ uf.nome }} - {{ uf.sigla }}</option>
+            </select>
+          </div>
+          <div class="col-12">
+            <label for="city" class="form-label">Cidade</label>
+            <select class="form-select" id="city" name="city" required>
+              <option selected disabled value="">Escolha...</option>
+              <option>...</option>
+            </select>
+          </div>
+          <div class="col-9">
+            <label for="street" class="form-label">Rua</label>
+            <input type="text" class="form-control" id="street" name="street" aria-describedby="streetHelp"
+                   autocomplete="off">
+          </div>
+          <div class="col-3">
+            <label for="number" class="form-label">Nº</label>
+            <input type="number" class="form-control" id="number" name="number" aria-describedby="numberHelp"
+                   autocomplete="off">
+          </div>
+          <div class="col-6">
+            <label for="lat" class="form-label">Latitude</label>
+            <input type="lat" class="form-control" id="lat" disabled>
+          </div>
+          <div class="col-6">
+            <label for="lon" class="form-label">Longitude</label>
+            <input type="lon" class="form-control" id="lon" disabled>
+          </div>
+          <div class="col-12">
+            <button class="btn btn-outline-primary">Atualizar Coordenadas</button>
+          </div>
+        </form>
+      </div>
+      <div class="card-footer text-end">
+        <button class="btn btn-primary">Salvar</button>
+      </div>
+    </div>
+  </div>
+</div>

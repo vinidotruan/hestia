@@ -17,6 +17,7 @@ export class AuthService {
     return this.httpClient.post(`${this.baseRoute}/auth/login`, data)
       .pipe(map((response: LoginRequestResponse) => {
         localStorage.setItem("token", response.token);
+        localStorage.setItem("user", JSON.stringify(response.user));
       }));
   }
 
@@ -31,4 +32,5 @@ export class AuthService {
 
 export class LoginRequestResponse {
   token: string;
+  user: any;
 }

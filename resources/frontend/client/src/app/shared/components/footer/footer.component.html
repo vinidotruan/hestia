@@ -1,0 +1,29 @@
+<nav class="navbar bg-body-tertiary sticky-bottom shadow-lg border-top border-3" *ngIf="shouldShow()">
+  <div class="container-fluid">
+    <a class="navbar-brand d-flex flex-column align-items-center border border-3 rounded p-3 m-0"
+       [routerLink]="['/settings']" routerLinkActive="active bg-primary text-white border-primary-subtle"
+       ariaCurrentWhenActive="page">
+      <span class="material-symbols-outlined">
+      settings
+      </span>
+      <span>Perfil</span>
+    </a>
+    <a
+      class="navbar-brand d-flex flex-column align-items-center border border-3 rounded p-3 m-0"
+      [routerLink]="['/home']" routerLinkActive="active bg-primary text-white border-primary-subtle"
+      ariaCurrentWhenActive="page"
+    >
+      <span class="material-symbols-outlined">
+      search
+      </span>
+      <span>Buscar</span>
+    </a>
+    <a class="navbar-brand d-flex flex-column align-items-center border border-3 rounded p-3 m-0">
+      <span class="material-symbols-outlined">
+      list_alt
+      </span>
+      <span>Serviços</span>
+    </a>
+
+  </div>
+</nav>
